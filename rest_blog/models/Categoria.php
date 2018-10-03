@@ -47,30 +47,19 @@ class Categoria {
         if(isset($id) && isset($nome) && isset($descricao)) {
             $query = "UPDATE categoria SET nome = :nome, descricao = :descricao WHERE id = :id";
             $stmt = $this->conexao->prepare($query);
-            $stmt->execute([
-                "id" => $this->id,
-                "nome" => $this->nome,
-                "descricao" => $this->descricao
-            ]);
+            $stmt->bindParam('nome', $this->nome);
+            $stmt->bindParam('descricao', $this->descricao);
+            $stmt->bindParam('id', $this->id);
+            if($stmt->execute()) {
+                echo 'sim';
+                return true;
+            } else {
+                echo 'nao';
+                return false;
+            }
+
         }
 
-        if(isset($id) && isset($nome) && !isset($descricao)) {
-            $query = "UPDATE categoria SET nome = :nome WHERE id = :id";
-            $stmt = $this->conexao->prepare($query);
-            $stmt->execute([
-                "id" => $this->id,
-                "nome" => $this->nome
-            ]);
-        }
-
-        if(isset($id) && !isset($nome) && isset($descricao)) {
-            $query = "UPDATE categoria SET descricao = :descricao WHERE id = :id";
-            $stmt = $this->conexao->prepare($query);
-            $stmt->execute([
-                "id" => $this->id,
-                "descricao" => $this->descricao
-            ]);
-        }
     }
 
     public function delete() {

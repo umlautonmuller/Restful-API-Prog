@@ -3,7 +3,7 @@
 class Conexao {
     // Credenciais de conexão ao BD a serem utilizadas no PDO
     private $host = 'localhost';
-    private $dbname = 'cu';
+    private $dbname = 'banquinho';
     private $user = 'root';
     private $password = '';
 
