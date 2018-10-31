@@ -1,0 +1,69 @@
+/* 
+Palette:
+
+#001E28
+#003459
+#007EA7
+#003459
+#D8DBE2
+*/
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #eee;
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 4vw;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 15%;
+    background-color: #001E28
+}
+
+.sidebar span {
+    display: flex;
+    height: 25%;
+    font-size: 3vw;
+    align-items: center;
+}
+
+.sidebar ul {
+    display: flex;
+    height: 75%;
+    font-size: 1.5vw;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    /* justify-content: space-around; */
+    list-style-type: none;
+}
+
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    min-height: 7%;
+    padding-left: 10%;
+}
+
+.sidebar ul li:hover {
+    background-color: #003459
+}

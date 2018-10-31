@@ -1,25 +1,27 @@
-<?php
+<?php	
+	header('Content-Type: application/json');
+	
+	require_once '../../config/Conexao.php';
+	require_once '../../models/Categoria.php';
 
-header('Content-Type: Application/JSON');
+	if($_SERVER['REQUEST_METHOD']=='POST'){
 
-// Arquivo para testar o método create()
+		$db = new Conexao();
+		$pdo = $db->getConexao();
 
-include_once '../../config/Conexao.php';
-include_once '../../models/Categoria.php';
+		$categoria = new Categoria($pdo);
+		
+		$dados = json_decode(file_get_contents("php://input"));	
 
-$db = new Conexao();
-$conexao = $db->getConexao();
+		$categoria->nome = $dados->nome;
+		$categoria->descricao = $dados->descricao;
 
-$cat = new Categoria($conexao);              
-
-$cat->nome = $_POST['nome'];
-$cat->descricao = $_POST['descricao'];
-
-if($cat->create()) {
-    $res = array('Mensagem', 'Categoria criada');
-    // http_response_code(201);
-} else {
-    $res = array('Mensagem', 'Erro na criação da categoria');
-}
-
-echo json_encode($res);
+		if($categoria->create()) {
+			$res = array('mensagem','Categoria criada');
+		} else {
+			$res = array('mensagem','Erro na criação da categoria');
+		}
+		echo json_encode($res);
+	}else{
+		echo json_encode(['mensagem'=> 'Método não suportado']);
+	}

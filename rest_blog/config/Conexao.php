@@ -1,25 +1,29 @@
-<?php
+ <?php
+
+/*
+	Classe que contém os parâmetros para conexão e o método que retona a conexão
+*/
 
 class Conexao {
-    // Credenciais de conexão ao BD a serem utilizadas no PDO
-    private $host = 'localhost';
-    private $dbname = 'banquinho';
-    private $user = 'root';
-    private $password = '';
+	//credenciais de acesso ao BD
+	private $host = 'localhost';
+	private $dbname = 'banquinho';
+	private $user = 'root';
+	private $passwd = '';
 
-    // Variável que vai armazenar a conexão feita
-    private $conexao;
+	//variável para a conexão
+	private $conexao;
 
-    // Método que vai efetuar a conexão e retorná-la
-    public function getConexao() {
-        $this->conexao = null;
-        try {
-            $this->conexao = new PDO('mysql:host='.$this->host.';dbname='.$this->dbname, $this->user, $this->password);
-        } catch(PDOException $e) {
-            echo "Erro de conexão: ".$e->getMessage();
-        }
+	public function getConexao() {
+		//estabelecer uma conexão e retornar a variável com a conexão
+		$this->conexao = null;
 
-        // Ao final, retorna a conexão efetuada
-        return $this->conexao;
-    }
+		try {
+			$this->conexao = new PDO('mysql:host='.$this->host.';dbname='.$this->dbname, $this->user, $this->passwd);
+		} catch(PDOException $e) {
+			echo "Erro na conexão: " . $e->getMessage();
+		}
+
+		return $this->conexao;
+	}
 }

@@ -1,24 +1,26 @@
 <?php
+	header('Content-Type: application/json; charset=utf-8');
+	
+	require_once '../../config/Conexao.php';
+	require_once '../../models/Categoria.php';
 
-header('Content-Type: Application/JSON');
+	if($_SERVER['REQUEST_METHOD']=='DELETE'){
 
-// Arquivo para testar o método delete()
+		$db = new Conexao();
+		$pdo = $db->getConexao();
 
-include_once '../../config/Conexao.php';
-include_once '../../models/Categoria.php';
+		$categoria = new Categoria($pdo);
+		
+		$dados = json_decode(file_get_contents("php://input"));	
 
-$db = new Conexao();
-$conexao = $db->getConexao();
+		$categoria->id = $dados->id;
 
-$cat = new Categoria($conexao);              
-
-
-$cat->id = $_POST['id'];
-
-if($cat->delete()) {
-    $res = array('Mensagem', 'Categoria deletada');
-} else {
-    $res = array('Mensagem', 'Erro ao deletar a categoria');
-}
-
-echo json_encode($res);
+		if($categoria->delete()) {
+			$res = array('mensagem'=>'Categoria deletada');
+		} else {
+			$res = array('mensagem'=>'Erro na deleção da categoria');
+		}
+		echo json_encode($res);
+	}else{
+		echo json_encode(['mensagem'=> 'método não suportado']);
+	}

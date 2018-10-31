@@ -1,17 +1,22 @@
 <?php
 
-header('Content-Type: Application/JSON');
+	header('Acess-Control-Allow-Origin: *');
+	header('Content-Type: application/json');
+	
+	require_once '../../config/Conexao.php';
+	require_once '../../models/Categoria.php';
 
-// Arquivo para testar o método read()
+	$db = new Conexao();
+	$pdo = $db->getConexao();
 
-include_once '../../config/Conexao.php';
-include_once '../../models/Categoria.php';
+    $categoria = new Categoria($pdo);
 
-$db = new Conexao();
-$conexao = $db->getConexao();
+    $resultado = $categoria->read();
 
-$cat = new Categoria($conexao);              
+    $qtde_cats = sizeof($resultado);
 
-$resultado = $cat->read();
-
-echo json_encode($resultado);
+    if($qtde_cats>0){
+        echo json_encode($resultado);
+    }else{
+        echo json_encode(array('mensagem' => 'nenhuma categoria encontrada'));
+    }

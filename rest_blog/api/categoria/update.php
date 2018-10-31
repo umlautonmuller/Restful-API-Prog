@@ -1,38 +1,28 @@
 <?php
+	header('Content-Type: application/json');
 
-header('Content-Type: application/json');
+	require_once '../../config/Conexao.php';
+	require_once '../../models/Categoria.php';
 
-// Arquivo para testar o método update()
+	if($_SERVER['REQUEST_METHOD']=='PUT'){
 
-include_once '../../config/Conexao.php';
-include_once '../../models/Categoria.php';
+		$db = new Conexao();
+		$pdo = $db->getConexao();
 
-if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    $db = new Conexao();
-    $conexao = $db->getConexao();
+		$categoria = new Categoria($pdo);
+		
+        $dados = json_decode(file_get_contents("php://input"));	
+        
+        $categoria->id = $dados->id;
+		$categoria->nome = $dados->nome;
+		$categoria->descricao = $dados->descricao;
 
-    $cat = new Categoria($conexao);              
-
-    $dados = json_decode(file_get_contents("php://input"));
-
-    $cat->id = $dados->id;
-    $cat->nome = $dados->nome;
-    $cat->descricao = $dados->descricao;
-
-    try {
-        $cat->update(); 
-    }catch(PDOException $e){
-        echo $e->getMessage();
-    }
-
-/*
-    if($cat->update()) {
-        $res = array('Mensagem' => 'Categoria atualizada');
-    } else {
-        $res = array('Mensagem' => 'Erro ao atualizar a categoria');
-    }
-    echo json_encode($res);
-    */
-} else {
-    echo json_encode(['Mensagem' => 'Método não suportado']);
-}
+		if($categoria->update()) {
+			$res = array('mensagem','Categoria atualizada');
+		} else {
+			$res = array('mensagem','Erro na atualização da categoria');
+		}
+		echo json_encode($res);
+	}else{
+		echo json_encode(['mensagem'=> 'método não suportado']);
+	}
