@@ -8,20 +8,28 @@ Palette:
 #D8DBE2
 */
 
+* {
+    box-sizing: border-box
+}
+
 body {
-    width: 100vw;
-    height: 100vh;
     background-color: #eee;
-    color: #fff;
     font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 4vw;
     margin: 0;
     padding: 0;
+    width: 100vw;
+    max-width: 100%;
+
 }
 
 main {
     display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    max-height: 100vh;
+    color: #fff;
 }
 
 .sidebar {
@@ -29,12 +37,10 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
+    height: 100vh;
     width: 15%;
-    background-color: #001E28
+    background-color: #002641 
+    /* 002D3D */
 }
 
 .sidebar span {
@@ -66,4 +72,31 @@ main {
 
 .sidebar ul li:hover {
     background-color: #003459
+}
+
+main section {
+    display: flex;
+    width: 85%;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+main section div.post {
+    width: 70%;
+    margin-top: 3%;
+    padding: 3%;
+    border-radius: .5vw;
+    background: #053C5E
+}
+
+main section div.post div:first-child {
+    margin-bottom: 3%;
+    font-size: 3vw
+}
+
+main section div.post div:last-child {
+    font-size: 1vw;
+    overflow: auto
 }

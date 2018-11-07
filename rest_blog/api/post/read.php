@@ -1,6 +1,6 @@
 <?php
 
-header('Acess-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 require_once '../../config/Conexao.php';
