@@ -80,7 +80,6 @@ main section {
     align-items: center;
     justify-content: space-evenly;
     flex-direction: column;
-    overflow: scroll;
 }
 
 main section div.post {
@@ -98,5 +97,5 @@ main section div.post div:first-child {
 
 main section div.post div:last-child {
     font-size: 1vw;
-    overflow: auto
+    word-wrap: break-word
 }

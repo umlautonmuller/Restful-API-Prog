@@ -10,8 +10,6 @@
         titulo.innerText = post.titulo
         texto.innerText = post.texto
 
-        // texto.
-
         document.querySelector('section').appendChild(element)
         element.appendChild(titulo)
         element.appendChild(texto)
