@@ -20,14 +20,19 @@ class Post {
 
 	/* O método read() deverá efetuar uma consulta SQL na tabela categoria, e retornar o resultado */
 
-	public function read($id=null) {
-		if (!isset($id)) {
-			$consulta = "SELECT * FROM post ORDER BY titulo";
-			$stmt = $this->conexao->prepare($consulta);
-		} else {
+	public function read($id=null, $idcategoria=null) {
+		//se isset $id - filtra pela chave primaria - 
+
+		if (isset($id)) {
 			$consulta = "SELECT * FROM post WHERE id = :id";
 			$stmt = $this->conexao->prepare($consulta);
-			$stmt = $this-> bindParam('id', $id);
+			$stmt-> bindParam('id', $id);
+		}elseif (isset($idcategoria)) {
+			# code...
+
+		} else {
+			$consulta = "SELECT * FROM post ORDER BY titulo";
+			$stmt = $this->conexao->prepare($consulta);
 		}
 		
 		try{

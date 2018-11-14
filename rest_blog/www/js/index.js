@@ -1,5 +1,5 @@
 (async () => {
-    let fete = await fetch("http://localhost/rest_blog/api/post/read.php")
+    let fete = await fetch("../api/post/read.php")
     let data = await fete.json()
     data.forEach(post => {
         let element = document.createElement('div')

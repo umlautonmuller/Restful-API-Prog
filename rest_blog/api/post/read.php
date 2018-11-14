@@ -4,14 +4,24 @@ header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
 require_once '../../config/Conexao.php';
-require_once '../../models/post.php';
+require_once '../../models/Post.php';
 
 $db = new Conexao();
 $pdo = $db->getConexao();
 
 $post = new Post($pdo);
 
-$resultado = $post->read();
+
+if (isset($_GET['id'])){ //dados de um POST
+    $resultado = $post->read($_GET['id']);
+}elseif(isset($_GET['idcategoria'])){//todos os posts de uma cat
+	$resultado = $post->read(null, $_GET['idcategoria']);
+}else{//todos os posts
+	$resultado = $post->read();
+}
+
+//read() - todos
+//read(null, $idcategoria)
 
 $qtde_cats = sizeof($resultado);
 
